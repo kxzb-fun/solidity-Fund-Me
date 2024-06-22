@@ -17,6 +17,12 @@ contract FundMe {
     address[] public funders;
     mapping(address funder => uint256 amountFuned) public  addressToAmountFuned;
 
+    address public owner;
+    // when contract init run this code
+    constructor() {
+       owner = msg.sender;
+    }
+
     function fund() public payable{
         // 1. how do we sent ETH to this contract
         // 1 ether = 1000000000000000000 wei = 1*10**18 wei = 1e18 wei
@@ -30,6 +36,7 @@ contract FundMe {
     }
 
     function withdraw() public {
+        require(owner == msg.sender, "Must be owner!");
         for (uint256 funderIndex = 0; funderIndex <  funders.length; funderIndex++) {
             // get funders address
             address funder = funders[funderIndex];
