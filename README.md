@@ -29,6 +29,8 @@ require(msg.value > 1 ether, "Didn't send enough ETH");
 
 ```
 
+we can use (Ethereum Unit Converter)[https://eth-converter.com/] to convert
+
 ### Reverting Transactions
 
 If a user attempts to send less than the required amount, the transaction will fail and a message will be displayed. For instance, if a user attempts to send 1000 wei, which is significantly less than one ether (1 x 10^18 wei), the transaction will not proceed.
