@@ -12,6 +12,8 @@ contract FundMe {
     // have a minimun $ send
 
     uint256 public minimumUsd = 1e18;
+    address[] public funders;
+    mapping(address funder => uint256 amountFuned) public  addressToAmountFuned;
 
     function fund() public payable{
         // 1. how do we sent ETH to this contract
@@ -19,6 +21,9 @@ contract FundMe {
         // require(msg.value > 1e18, "Didn't send enough ETH");
         // require(msg.value > 1 ether, "Didn't send enough ETH");
         require(getConvertionRate(msg.value) >= minimumUsd, "Didn't send enough ETH");
+        // msg.sender
+        funders.push(msg.sender);
+        addressToAmountFuned[msg.sender] =  addressToAmountFuned[msg.sender] + msg.value;
     }
 
     // function withdraw() public {
