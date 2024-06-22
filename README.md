@@ -35,3 +35,14 @@ we can use (Ethereum Unit Converter)[https://eth-converter.com/] to convert
 
 If a user attempts to send less than the required amount, the transaction will fail and a message will be displayed. For instance, if a user attempts to send 1000 wei, which is significantly less than one ether (1 x 10^18 wei), the transaction will not proceed.
 
+## Solidity reverts
+
+Understanding Reverts and Gas in Ethereum Blockchain
+
+### What is a Revert?
+
+Reverts can at times be confusing and appear tricky. A revert, in essence, undoes previous actions, sending back the remaining gas associated with that transaction.
+
+### Checking the Gas Usage
+
+If a transaction reverts, it undoes its previous actions and is considered a "failed transaction". But remember, if you initiate a reverted transaction, you still consume gas.
