@@ -29,8 +29,26 @@ contract FundMe {
         addressToAmountFuned[msg.sender] =  addressToAmountFuned[msg.sender] + msg.value;
     }
 
-    // function withdraw() public {
+    function withdraw() public {
+        for (uint256 funderIndex = 0; funderIndex <  funders.length; funderIndex++) {
+            // get funders address
+            address funder = funders[funderIndex];
+            addressToAmountFuned[funder] = 0;
+        }
+        // reset array
+        funders = new address[](0);
+        // withdraw the funds
+        // https://solidity-by-example.org/sending-ether/  transfer send call
 
-    // }
+        // transfer 
+        // payable(msg.sender).transfer(address(this).balance);
+        // // send
+        // bool sendSuccess = payable(msg.sender).send(address(this).balance);
+        // require(sendSuccess, "Send fail");
+        // call
+        (bool callSuccess,) = payable(msg.sender).call{value: address(this).balance}("");
+        require(callSuccess, "call fail");
+
+    }
 
 }
