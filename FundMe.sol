@@ -7,6 +7,9 @@ pragma solidity ^0.8.18;
 
 import { PriceConverter } from './PriceConverter.sol';
 
+// Custom Errors in Solidity https://soliditylang.org/blog/2021/04/21/custom-errors/
+error NotOwner();
+
 contract FundMe {
     // allow user to send $
     // have a minimun $ send
@@ -59,7 +62,10 @@ contract FundMe {
     }
 
     modifier onlyOwner () {
-        require(i_owner == msg.sender, "Must be owner!");
+        // first solution
+        // require(i_owner == msg.sender, "Must be owner!");
+        // section solution
+        if(i_owner == msg.sender) { revert NotOwner();}
         _;
     }
 
