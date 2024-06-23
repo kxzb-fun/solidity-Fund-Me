@@ -12,15 +12,15 @@ contract FundMe {
     // have a minimun $ send
 
     using PriceConverter for uint256;
-
-    uint256 public minimumUsd = 1e18;
+    // Immutability and constants
+    uint256 public constant MINIMUN_USD = 1e18;
     address[] public funders;
     mapping(address funder => uint256 amountFuned) public  addressToAmountFuned;
 
-    address public owner;
+    address public immutable i_owner;
     // when contract init run this code
     constructor() {
-       owner = msg.sender;
+       i_owner = msg.sender;
     }
 
     function fund() public payable{
@@ -28,8 +28,8 @@ contract FundMe {
         // 1 ether = 1000000000000000000 wei = 1*10**18 wei = 1e18 wei
         // require(msg.value > 1e18, "Didn't send enough ETH");
         // require(msg.value > 1 ether, "Didn't send enough ETH");
-        // require(getConvertionRate(msg.value) >= minimumUsd, "Didn't send enough ETH");
-        require(msg.value.getConvertionRate() >= minimumUsd, "Didn't send enough ETH");
+        // require(getConvertionRate(msg.value) >= MINIMUN_USD, "Didn't send enough ETH");
+        require(msg.value.getConvertionRate() >= MINIMUN_USD, "Didn't send enough ETH");
         // msg.sender
         funders.push(msg.sender);
         addressToAmountFuned[msg.sender] =  addressToAmountFuned[msg.sender] + msg.value;
@@ -59,7 +59,7 @@ contract FundMe {
     }
 
     modifier onlyOwner () {
-        require(owner == msg.sender, "Must be owner!");
+        require(i_owner == msg.sender, "Must be owner!");
         _;
     }
 
