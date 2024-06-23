@@ -69,4 +69,15 @@ contract FundMe {
         _;
     }
 
+    // what happens if somebody send this contract ETH without calling the fund function?  
+    // two  sepesceil function receive() fallback()
+    receive() external payable  {
+        fund();
+    }
+
+    fallback() external payable { 
+        fund();
+    }
+
+
 }
